@@ -1,0 +1,7 @@
+{
+  "name": "TeLlevo",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
