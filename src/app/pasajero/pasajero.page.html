@@ -4,9 +4,10 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" color="light">
-
-  <h1 class="center-content" style="padding-bottom: 50px">Bienvenido {{ userInfoReceived?.nombre }}</h1>
+<ion-content [fullscreen]="true" color="kr" class="ion-padding">
+  <h1 class="center-content" style="padding-bottom: 50px">
+    Bienvenido {{ userInfoReceived?.nombre }}
+  </h1>
   <ion-list [inset]="true">
     <ion-list-header>
       <ion-label>INFORMACIÓN DEL PASAJERO: </ion-label>
@@ -18,8 +19,19 @@
       <ion-label>Nombre: {{ userInfoReceived?.nombre }}</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label>Apellidos: {{ userInfoReceived?.apPaterno }} {{ userInfoReceived?.apMaterno }}</ion-label>
+      <ion-label
+        >Apellidos: {{ userInfoReceived?.apPaterno }} {{
+        userInfoReceived?.apMaterno }}</ion-label
+      >
     </ion-item>
   </ion-list>
+
+  <div class="ion-padding">
+    <!--
+        Navigación con una función.
+      -->
+      <ion-button color="kr" expand="full">Pedir viaje</ion-button>
+  </div>
+
 
 </ion-content>

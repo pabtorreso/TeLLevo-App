@@ -6,13 +6,13 @@ import { Router } from '@angular/router';
 import { UserModel } from 'src/app/models/UserModel';
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.page.html',
-  styleUrls: ['./admin.page.scss'],
+  selector: 'app-conductor',
+  templateUrl: './conductor.page.html',
+  styleUrls: ['./conductor.page.scss'],
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule]
 })
-export class AdminPage implements OnInit {
+export class ConductorPage implements OnInit {
 
   adminInfoReceived: UserModel | undefined;
 

@@ -16,9 +16,9 @@ import { UserModel } from 'src/app/models/UserModel';
 export class LoginPage implements OnInit {
 
   listUser: UserModel[] = [
-    new UserModel("ESTEBAN","JARA","GONZALEZ","912312334","ejemplo@ejemplo.cl",undefined,"SUPERIOR","VESPERTINA","eg.gonzalezj","es123456","PASAJERO"),
+    new UserModel("ESTEBAN","JARA","GONZALEZ","912312334","ejemplo@ejemplo.cl",undefined,"VESPERTINA","eg.gonzalezj","es123456","PASAJERO"),
 
-    new UserModel("PABLO","TORRES","OYARZUN","987342422","ejemplo@ejemplo.cl",undefined,"SUPERIOR","VESPERTINA","p.oyarzunt","pa123456","CONDUCTOR")
+    new UserModel("PABLO","TORRES","OYARZUN","987342422","ejemplo@ejemplo.cl",undefined,"VESPERTINA","p.oyarzunt","pa123456","CONDUCTOR")
   ];
 
   userLoginModal: IUserLogin = {
@@ -43,10 +43,10 @@ export class LoginPage implements OnInit {
           }
         }
         if(this.listUser[i].tipoUsuario == 'PASAJERO'){
-          let sendInfo = this.route.navigate(['/usuario'], userInfoSend);
+          let sendInfo = this.route.navigate(['/pasajero'], userInfoSend);
           return true;
         }else{
-          let sendInfo = this.route.navigate(['/admin'], userInfoSend);
+          let sendInfo = this.route.navigate(['/conductor'], userInfoSend);
           return true;
         }
       }

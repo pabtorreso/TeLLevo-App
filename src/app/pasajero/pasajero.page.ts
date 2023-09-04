@@ -5,14 +5,15 @@ import { IonicModule } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserModel } from 'src/app/models/UserModel';
 
+
 @Component({
-  selector: 'app-usuario',
-  templateUrl: './usuario.page.html',
-  styleUrls: ['./usuario.page.scss'],
+  selector: 'app-pasajero',
+  templateUrl: './pasajero.page.html',
+  styleUrls: ['./pasajero.page.scss'],
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule]
 })
-export class UsuarioPage implements OnInit {
+export class PasajeroPage implements OnInit {
 
   userInfoReceived: UserModel | undefined;
   idUserHtmlRouterLink: any;
@@ -27,5 +28,7 @@ export class UsuarioPage implements OnInit {
 
   ngOnInit() {
   }
+
+
 
 }

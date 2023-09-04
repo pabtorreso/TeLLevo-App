@@ -6,7 +6,6 @@ export class UserModel {
     public telefono: string,
     public email: string,
     public birthday: Date | undefined,
-    public nivelDeEstudios: string,
     public jornadaDeEstudios: string,
     public username: string,
     public password: string,
@@ -21,7 +20,6 @@ export class UserModel {
     telefono: string;
     email: string;
     birthday: Date | undefined;
-    nivelDeEstudios: string;
     jornadaDeEstudios: string;
     username: string;
     password: string;
@@ -34,7 +32,6 @@ export class UserModel {
         telefono: event.telefono,
         email: event.email,
         birthday: event.birthday,
-        nivelDeEstudios: event.nivelDeEstudios,
         jornadaDeEstudios: event.jornadaDeEstudios,
         username: event.username,
         password: event.password,
