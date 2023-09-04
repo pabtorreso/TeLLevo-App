@@ -9,33 +9,9 @@ export class UserModel {
     public jornadaDeEstudios: string,
     public username: string,
     public password: string,
-    public tipoUsuario: string
+    public id_tipo_usuario: number
   ) {}
-
-  //Metodo dentro de la clase para crear usuario. EJEMPLO solamente.
-  static crearUsuario(event: {
-    nombre: string;
-    apPaterno: string;
-    apMaterno: string;
-    telefono: string;
-    email: string;
-    birthday: Date | undefined;
-    jornadaDeEstudios: string;
-    username: string;
-    password: string;
-    tipoUsuario: string;
-  }) {
-    return {
-        nombre: event.nombre,
-        apPaterno: event.apPaterno,
-        apMaterno: event.apMaterno,
-        telefono: event.telefono,
-        email: event.email,
-        birthday: event.birthday,
-        jornadaDeEstudios: event.jornadaDeEstudios,
-        username: event.username,
-        password: event.password,
-        tipoUsuario: event.tipoUsuario
-    };
-  }
 }
+
+
+

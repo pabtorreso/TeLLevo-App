@@ -1,6 +1,6 @@
 import { Time } from "@angular/common";
 
-export class viajePersonalModel {
+export class ViajePersonalModel {
     constructor(
       public duracion: Time,
       public destino: string,

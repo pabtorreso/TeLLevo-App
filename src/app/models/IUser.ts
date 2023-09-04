@@ -5,9 +5,8 @@ export interface IUsuario {
     telefono: string;
     email: string;
     birthday: Date | undefined;
-    nivelDeEstudios: string;
     jornada: string;
     username: string;
     password: string;
-    tipoUsuario: string;
+    id_tipo_usuario: number;
 }

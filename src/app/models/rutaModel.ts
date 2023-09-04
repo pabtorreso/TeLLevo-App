@@ -1,6 +1,6 @@
 import { Time } from "@angular/common";
 
-export class viajePersonalModel {
+export class RutaModel {
     constructor(
 
       public id_ruta: Time,

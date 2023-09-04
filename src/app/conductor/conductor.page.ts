@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { UserModel } from 'src/app/models/UserModel';
+import { ConductorModel } from '../models/ConductorModel';
 
 @Component({
   selector: 'app-conductor',
@@ -14,10 +15,10 @@ import { UserModel } from 'src/app/models/UserModel';
 })
 export class ConductorPage implements OnInit {
 
-  adminInfoReceived: UserModel | undefined;
+  conductorInfoReceived: ConductorModel | undefined;
 
   constructor(private r: Router) {
-    this.adminInfoReceived = this.r.getCurrentNavigation()?.extras.state?.['user'];
+    this.conductorInfoReceived = this.r.getCurrentNavigation()?.extras.state?.['user'];
    }
 
   ngOnInit() {

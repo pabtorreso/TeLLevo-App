@@ -6,23 +6,26 @@
 
 <ion-content [fullscreen]="true" color="kr" class="ion-padding">
   <h1 class="center-content" style="padding-bottom: 50px">
-    Bienvenido {{ userInfoReceived?.nombre }}
+    Bienvenido {{ pasajeroInfoReceived?.nombre }}
   </h1>
   <ion-list [inset]="true">
     <ion-list-header>
       <ion-label>INFORMACIÓN DEL PASAJERO: </ion-label>
     </ion-list-header>
     <ion-item>
-      <ion-label>Nombre de Usuario: {{ userInfoReceived?.username }}</ion-label>
+      <ion-label>Nombre de Usuario: {{ pasajeroInfoReceived?.username }}</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label>Nombre: {{ userInfoReceived?.nombre }}</ion-label>
+      <ion-label>Nombre: {{ pasajeroInfoReceived?.nombre }}</ion-label>
     </ion-item>
     <ion-item>
       <ion-label
-        >Apellidos: {{ userInfoReceived?.apPaterno }} {{
-        userInfoReceived?.apMaterno }}</ion-label
+        >Apellidos: {{ pasajeroInfoReceived?.apPaterno }} {{
+          pasajeroInfoReceived?.apMaterno }}</ion-label
       >
+    </ion-item>
+    <ion-item>
+      <ion-label>Tipo Pasajero: {{ tipoPasajeroReceived?.desc_tipo_pasajero }}</ion-label>
     </ion-item>
   </ion-list>
 
