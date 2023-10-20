@@ -8,3 +8,6 @@ Aplicación móvil como plataforma de transportes, se enfoca en proporcionar sol
 ```
 git clone https://github.com/pabtorreso/TeLLevo-App.git
 ```
+```
+ionic serve
+```
