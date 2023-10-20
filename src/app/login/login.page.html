@@ -1,0 +1,49 @@
+<ion-content [fullscreen]="true">
+
+
+  <ion-card class="card_fondo">
+    <ion-card-header>
+      <ion-card-title>Inicio de sesión </ion-card-title>
+      <img src="assets/image/kr_logo.png" alt="Descripción de la imagen">
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-card class="card_form">
+        <ion-input
+          type="mail"
+          label="Nombre de Usuario"
+          labelPlacement="floating"
+          placeholder="Ingresa tu correo electrónico"
+          maxlength="30"
+        ></ion-input>
+
+        <ion-input
+          type="password"
+          label="Contraseña"
+          labelPlacement="floating"
+          placeholder="Ingresa tu contraseña"
+          maxlength="30"
+        ></ion-input>
+
+        <br>
+
+        <ion-button (click)="insertarUsuario()">Ingresar</ion-button>
+
+        <ion-button>Cancelar</ion-button>
+
+        <br />
+        <ion-label
+          >¿Aún no tienes cuenta?<a href="/register"> <br>Regístrate ahora.</a>
+        </ion-label>
+
+        <br />
+        <ion-label>¿Olvidaste tu contraseña?<br> Recuperala aquí.</ion-label>
+    
+
+      </ion-card>
+    </ion-card-content>
+
+
+
+  </ion-card>
+</ion-content>

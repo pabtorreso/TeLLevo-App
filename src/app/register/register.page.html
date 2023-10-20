@@ -1,0 +1,105 @@
+<ion-content [fullscreen]="true">
+  <ion-card class="card_fondo">
+    <ion-card-header>
+      <ion-card-title>Registro</ion-card-title>
+      <img src="assets/image/kr_logo.png" alt="Descripción de la imagen">
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-card class="card_form">
+        <ion-card-header>
+          <ion-card-title>Datos Personales</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-input
+            label="RUN"
+            labelPlacement="floating"
+            placeholder="Tu RUN 99.999.999-9"
+            [(ngModel)]="numrut_usuario"
+          ></ion-input>
+
+          <ion-input
+            label="Nombre"
+            labelPlacement="floating"
+            placeholder="Tu nombre"
+            maxlength="30"
+
+          ></ion-input>
+
+          <ion-input
+            label="Apellidos"
+            labelPlacement="floating"
+            placeholder="Tus apellidos"
+            maxlength="30"
+
+          ></ion-input>
+
+          <ion-input
+            label="Fecha de Nacimiento"
+            labelPlacement="floating"
+            placeholder="Tu fecha de nacimiento 01/01/2000"
+          ></ion-input>
+
+          <ion-select label="Tipo de Pasajero" label-placement="floating">
+            <ion-select-option value="alumno">ALUMNO</ion-select-option>
+            <ion-select-option value="docente">DOCENTE</ion-select-option>
+            <ion-select-option value="otro">OTRO</ion-select-option>
+          </ion-select>
+
+          <ion-select label="Jornada" label-placement="floating">
+            <ion-select-option value="diurna">DIURNA</ion-select-option>
+            <ion-select-option value="vespertina">VESPERTINA</ion-select-option>
+          </ion-select>
+        </ion-card-content>
+      </ion-card>
+
+      <br>
+
+      <ion-card class="card_form">
+        <ion-card-header>
+          <ion-card-title>Datos de Usuario</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-input
+            type="mail"
+            label="Nombre de Usuario"
+            labelPlacement="floating"
+            placeholder="Ingresa tu correo electrónico"
+            maxlength="30"
+          ></ion-input>
+
+          <ion-input
+            type="password"
+            label="Contraseña"
+            labelPlacement="floating"
+            placeholder="Ingresa una contraseña"
+            maxlength="30"
+          ></ion-input>
+
+          <ion-input
+            type="password"
+            label="Repite la Contraseña"
+            labelPlacement="floating"
+            placeholder="Ingresa nuevamente la contraseña"
+            maxlength="30"
+          ></ion-input>
+        </ion-card-content>
+      </ion-card>
+
+      <br>
+
+
+
+      <ion-button (click)="mostrar()">Registrarse </ion-button>
+
+      <br>
+
+      <ion-button (click)="irAInicioSesion()">Cancelar</ion-button>
+
+    </ion-card-content>
+
+
+  </ion-card>
+</ion-content>
