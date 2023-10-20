@@ -11,7 +11,10 @@ import { IonicModule } from '@ionic/angular';
 export class AppComponent {
   constructor() {}
 }
+<<<<<<< HEAD
 
 
 
 
+=======
+>>>>>>> 365552ef4f5321842223bc6c25b6388aeaab0201
