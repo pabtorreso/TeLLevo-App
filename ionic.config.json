@@ -1,0 +1,7 @@
+{
+  "name": "kr",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
