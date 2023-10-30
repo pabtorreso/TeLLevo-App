@@ -17,8 +17,6 @@ ionic serve
 #### Emular:
 ```
 Con F12 emular como Samsung Galaxy S20 Ultra
-<<<<<<< HEAD
 ```
-=======
-```
->>>>>>> 82081a6e34b647e23d7f1cc53bfe2327149e8982
+
+
