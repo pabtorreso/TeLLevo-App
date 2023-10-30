@@ -46,7 +46,6 @@ export class CreateTripPage {
   
     if (!userId) {
       console.error('No se pudo obtener el ID del usuario');
-      // Aquí podrías mostrar un mensaje de error al usuario.
       return;
     }
   
@@ -59,7 +58,6 @@ export class CreateTripPage {
   
     console.log("Datos del viaje a crear:", this.trip);
   
-    // Llamada al servicio para crear el viaje
     this.tripsService.createTrip(this.trip).subscribe(async response => {
       console.log('Viaje creado exitosamente!', response);
       
