@@ -1,0 +1,60 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Detalles del Viaje</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Detalles del Viaje</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div *ngIf="tripDetails$ | async as tripDetails; else loading">
+    <!--- {{ tripDetails | json }} -->
+    <ion-list>
+      <ion-item>
+        <ion-label position="stacked">Origen</ion-label>
+        <ion-input [value]="tripDetails?.origin" aria-labelledby="" disabled></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Destino</ion-label>
+        <ion-input [value]="tripDetails?.destination" aria-labelledby="" disabled></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Asientos Disponibles</ion-label>
+        <ion-input [value]="tripDetails?.availableSeats"  aria-labelledby=""disabled></ion-input>
+      </ion-item>
+
+      <ion-item *ngIf="tripDetails.driver_id">
+        <ion-label position="stacked">Conductor</ion-label>
+        <ion-input [value]="tripDetails.driver_id.first_name + ' ' + tripDetails.driver_id.last_name" aria-labelledby="" disabled></ion-input>
+      </ion-item>
+
+      <ion-item *ngIf="tripDetails.passengers && tripDetails.passengers.length > 0">
+        <ion-label position="stacked">Pasajeros</ion-label>
+        <ion-list>
+          <ion-item *ngFor="let passenger of tripDetails.passengers">
+            {{ passenger.first_name }} {{ passenger.last_name }}
+          </ion-item>
+        </ion-list>
+      </ion-item>
+
+      <ion-item *ngIf="!tripDetails.passengers?.length">
+        <ion-label>No hay pasajeros en este viaje.</ion-label>
+      </ion-item>
+    </ion-list>
+
+    <ion-button *ngIf="isDriver()" (click)="endTrip(tripDetails.trip_id)">Finalizar Viaje</ion-button>
+
+    <ion-button *ngIf="!isDriver()" (click)="leaveTrip()">Salir del Viaje</ion-button>
+    
+  </div>
+  <ion-button (click)="goToMenu()">Volver al Menú</ion-button>
+  <ng-template #loading>
+    <div>Cargando...</div>
+  </ng-template>
+</ion-content>

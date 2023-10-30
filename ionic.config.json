@@ -1,0 +1,7 @@
+{
+  "name": "example_app_1",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

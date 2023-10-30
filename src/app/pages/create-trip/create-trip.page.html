@@ -1,0 +1,24 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>CreateTrip</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label position="stacked">Origen</ion-label>
+      <ion-input [(ngModel)]="trip.origin" name="origin" aria-labelledby="" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Destino</ion-label>
+      <ion-input [(ngModel)]="trip.destination" name="destination" aria-labelledby="" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Asientos Disponibles</ion-label>
+      <ion-input type="number" [(ngModel)]="trip.availableSeats" name="availableSeats" aria-labelledby=""required></ion-input>
+    </ion-item>
+    <ion-button expand="block" type="submit">Crear Viaje</ion-button>
+  </form>
+  <ion-button expand="block" (click)="onCancel()">Cancelar</ion-button>
+</ion-content>

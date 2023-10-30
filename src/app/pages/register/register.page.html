@@ -1,0 +1,47 @@
+<ion-header [translucent]="true">
+
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Registrar</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">Registrarme</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <div>
+        <ion-input class="center-content" fill="outline" shape="rounded" labelPlacement="floating" label="Nombre" placeholder="Tu nombre" style="margin-top: 20px;" [(ngModel)]="userRegisterModal.first_name" required></ion-input>
+        <ion-input class="center-content" fill="outline" shape="rounded" labelPlacement="floating" label="Apellido" placeholder="Tu apellido" style="margin-top: 20px;" [(ngModel)]="userRegisterModal.last_name" required></ion-input>
+        <ion-select class="center-content" fill="outline" shape="rounded" labelPlacement="floating" label="Tipo de Usuario" name="tipoPasajero" style="margin-top: 20px;" [(ngModel)]="userRegisterModal.userType" required>
+          <ion-select-option value="Pasajero">Pasajero</ion-select-option>
+          <ion-select-option value="Conductor">Conductor</ion-select-option>
+          <ion-select-option value="Ambos">Ambos</ion-select-option>
+        </ion-select>
+        <ion-select class="center-content" fill="outline" shape="rounded" labelPlacement="floating" label="Jornada" name="tipoPasajero" style="margin-top: 20px;" [(ngModel)]="userRegisterModal.jornada" required>
+          <ion-select-option value="Diurno">Diurno</ion-select-option>
+          <ion-select-option value="Vespertino">Vespertino</ion-select-option>
+        </ion-select>
+        <ion-input class="center-content" fill="outline" shape="rounded" labelPlacement="floating" label="Teléfono" placeholder="+56 9 87654321" style="margin-top: 20px;" [(ngModel)]="userRegisterModal.phone" required></ion-input>
+        <ion-input class="center-content" fill="outline" shape="rounded" labelPlacement="floating" label="Email" placeholder="correo@mail.com" style="margin-top: 20px;" [(ngModel)]="userRegisterModal.email" required></ion-input>
+        <ion-input type="password" class="center-content" fill="outline" shape="rounded" labelPlacement="floating" label="Contraseña" style="margin-top: 20px;" [(ngModel)]="userRegisterModal.password" required></ion-input>
+
+          <div style="margin-top: 20px;" class="center-content">
+            <ion-button color="success" (click)="registerUser()">Registrar</ion-button>
+          </div>
+          <div style="margin-top: 20px;" class="center-content">
+            <ion-button color="medium" (click)="goToLogin()">Cancelar</ion-button>
+          </div>
+
+          <div style="margin-top: 20px;"></div>
+      </div>
+    </ion-card-content>
+
+  </ion-card>
+
+</ion-content>

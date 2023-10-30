@@ -1,0 +1,36 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Viajes disponibles</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Viajes disponibles</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ng-container *ngIf="tripDetails$ | async as trips; else loading">
+    <ion-card *ngFor="let trip of trips">
+      <ion-card-header>
+        <ion-card-title>
+            Desde <strong>{{trip.origin}}</strong>
+            Hasta <strong>{{trip.destination}}</strong>
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        Conductor: {{ trip.driver_id.first_name }} {{ trip.driver_id.last_name }}
+        <br>
+        Asientos Disponibles: {{ trip.availableSeats }}
+        <ion-button (click)="joinTrip(trip)" [disabled]="trip.availableSeats <= 0">Unirme</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+
+  <ion-button (click)="goToMenu()">Volver al Menú</ion-button>
+  
+  <ng-template #loading>
+    <div>Cargando...</div>
+  </ng-template>
+</ion-content>

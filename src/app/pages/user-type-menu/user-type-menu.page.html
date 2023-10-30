@@ -1,0 +1,26 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Menu Principal</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div>
+    <ion-button (click)="goToProfile()">Ir al perfil</ion-button>
+  </div>
+
+  <ng-container *ngIf="userInfo$ | async as user">
+    <div>
+        <ion-button *ngIf="!relatedTrip && (user.userType === 'Conductor' || user.userType === 'Ambos')" (click)="createTrip()">Crear un viaje</ion-button>
+        <ion-button *ngIf="!relatedTrip && (user.userType === 'Pasajero' || user.userType === 'Ambos')" (click)="joinTrip()">Unirse a un viaje</ion-button>
+        <ion-button *ngIf="relatedTrip" (click)="goToTripDetail()">Estado del viaje</ion-button>
+    </div>
+
+    <div>
+      <ion-button (click)="logout()">Cerrar sesión</ion-button>
+    </div>
+    
+  </ng-container>
+
+</ion-content>

@@ -1,0 +1,48 @@
+<ion-header [translucent]="true">
+
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">login</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+
+  <ion-avatar style="margin: 0 auto;" class="item-avatar">
+    <img alt="logo" src="../../assets/img/kr_logo.png" />
+  </ion-avatar>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">Log In</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <div>
+        <ion-input class="center-content" fill="outline" shape="rounded" labelPlacement="floating" label="Correo"
+          [(ngModel)]="userLoginModal.email"></ion-input>
+        <ion-input type="password" class="center-content" style="margin-top: 20px;" fill="outline" shape="rounded" labelPlacement="floating" label="Contraseña"
+          [(ngModel)]="userLoginModal.password"></ion-input>
+
+          <div style="margin-top: 20px;" class="center-content">
+            <ion-button color="success" (click)="userLogin(userLoginModal)">Login</ion-button>
+          </div>
+    
+          <div style="margin-top: 20px;" class="center-content">
+            <ion-text color="medium">¿Aún no tienes una cuenta?</ion-text>
+            <ion-button fill="clear" (click)="goToRegister()">Regístrate</ion-button>
+          </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <div></div>
+
+</ion-content>
+
+<!--
+  Docs
+  https://ionicframework.com/docs/angular/navigation
+-->

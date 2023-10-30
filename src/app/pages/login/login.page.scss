@@ -1,0 +1,12 @@
+.center-content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.item-avatar  {     
+    width: 150% !important;  
+    height : 150% !important;  
+    max-width: 150px !important;  //any size
+    max-height: 150px !important; //any size 
+}
