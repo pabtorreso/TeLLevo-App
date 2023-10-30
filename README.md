@@ -11,3 +11,7 @@ git clone https://github.com/pabtorreso/TeLLevo-App.git
 ```
 ionic serve
 ```
+#### Emular:
+```
+Con F12 emular como Samsung Galaxy S20 Ultra
+```
