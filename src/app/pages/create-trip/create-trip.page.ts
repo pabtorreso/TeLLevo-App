@@ -21,7 +21,7 @@ export class CreateTripPage {
     origin: '',
     destination: '',
     availableSeats: 4,
-    driver_id: ''  // Se seteará antes de enviar.
+    driver_id: ''
   };
 
   constructor(private tripsService: TripsService, private router: Router) { }
@@ -52,25 +52,20 @@ export class CreateTripPage {
   
     this.trip.driver_id = userId;
   
-    // Validaciones adicionales (como un ejemplo)
     if (!this.trip.origin || !this.trip.destination || !this.trip.availableSeats) {
       console.error('Faltan datos obligatorios del viaje');
-      // Informar al usuario que faltan datos
       return;
     }
   
-    // Imprimir los datos del viaje para depuración
     console.log("Datos del viaje a crear:", this.trip);
   
     // Llamada al servicio para crear el viaje
     this.tripsService.createTrip(this.trip).subscribe(async response => {
       console.log('Viaje creado exitosamente!', response);
       
-      // Aquí haces la llamada para obtener el último viaje creado por ese conductor
       const trips = await this.tripsService.getTripsByUserId(userId).toPromise();
       
       if (trips && trips.length > 0) {
-        // Suponiendo que el último viaje del array es el más reciente
         const lastTrip = trips[trips.length - 1];
         this.router.navigate(['/trip-detail', lastTrip.trip_id]);
       } else {

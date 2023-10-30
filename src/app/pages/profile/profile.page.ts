@@ -16,7 +16,7 @@ import { Router, RouterLinkWithHref, } from '@angular/router';
 })
 export class ProfilePage implements OnInit {
 
-  userInfo$: Observable<UserModel> = new Observable<UserModel>(); // Inicializamos userInfo$ como un nuevo Observable vacío del tipo UserModel
+  userInfo$: Observable<UserModel> = new Observable<UserModel>();
   user_id: string;
 
   constructor(private router: Router, private _userService: UserService) {
@@ -28,6 +28,6 @@ export class ProfilePage implements OnInit {
   }
 
   navigateToUserTypeMenu() {
-    this.router.navigateByUrl('/user-type-menu'); // Asume que la ruta a user-type-menu.page es '/user-type-menu'
+    this.router.navigateByUrl('/user-type-menu');
   }
 }

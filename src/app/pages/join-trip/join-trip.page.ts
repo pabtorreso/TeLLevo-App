@@ -47,7 +47,6 @@ export class JoinTripPage implements OnInit, OnDestroy {
         };
 
         this._tripsService.addPassenger(newPassenger).subscribe(async response => {
-            // Aquí es donde haces la actualización después de agregar al pasajero
             const updatedTrip = {
               trip_id: trip.trip_id,
               availableSeats: trip.availableSeats - 1,

@@ -22,19 +22,18 @@ export class TripDetailPage implements OnInit, OnDestroy {
   tripDetails$: Observable<TripDetailModel | undefined> = of(undefined); // Valor inicial
   passengers$: Observable<PassengersModel[] | undefined> = of([]); // Valor inicial
   private destroy$ = new Subject<void>();
-  currentUser_id!: string; // Para almacenar el ID del usuario actual
+  currentUser_id!: string;
 
   tripDetails: any = {
     origin: '',
     destination: '',
-    // ...otros campos...
+    // ...otros campos... ????
   };
   
   constructor( private _tripsService: TripsService, private route: ActivatedRoute, private router: Router) {
     this.route.paramMap.subscribe(params => {
       const userInfo = this.route.snapshot.paramMap.get('userInfo');
       if (userInfo) {
-        // Ahora tienes el user_id en la variable userInfo
         console.log(userInfo);
       }
     });
@@ -56,14 +55,14 @@ export class TripDetailPage implements OnInit, OnDestroy {
       );
 
       this.passengers$ = this._tripsService.getPassengersForTrip(trip_id).pipe(
-        tap((passengers: PassengersModel[]) => console.log('Pasajeros:', passengers)), // Tipo especificado
+        tap((passengers: PassengersModel[]) => console.log('Pasajeros:', passengers)),
         catchError(err => {
           console.error("Hubo un error al obtener los pasajeros", err);
           return throwError(err);
         })
       );
     }
-    this.loadCurrentUserId(); // Carga el ID del usuario actual
+    this.loadCurrentUserId();
   }
 
   async loadCurrentUserId() {
@@ -82,7 +81,7 @@ export class TripDetailPage implements OnInit, OnDestroy {
       .subscribe(
         () => {
           console.log("Viaje finalizado con éxito");
-          this.goToMenu(); // Redirecciona al menú después de finalizar el viaje
+          this.goToMenu();
         },
         err => {
           console.error("Error al finalizar el viaje", err);
@@ -104,7 +103,7 @@ export class TripDetailPage implements OnInit, OnDestroy {
         // Eliminar al usuario de la lista de pasajeros del viaje
         this._tripsService.removePassenger(trip.trip_id, currentUserId).subscribe(response => {
             console.log('Usuario eliminado del viaje', response);
-            this.router.navigate(['/user-type-menu'], { state: { userInfo: currentUserId }});  // Redirige con el user_id
+            this.router.navigate(['/user-type-menu'], { state: { userInfo: currentUserId }});
         });
 
     } else {
@@ -113,13 +112,12 @@ export class TripDetailPage implements OnInit, OnDestroy {
   }
   
   async goToMenu() {
-    // Obtener user_id de Preferences
+    // obtener user_id de Preferences
     const { value } = await Preferences.get({ key: 'userId' });
     
     if (value) {
       this.router.navigate(['/user-type-menu'], { state: { userInfo: value }});
     } else {
-      // Manejo de error: El ID del usuario no se encontró.
       console.error('El ID del usuario no se encontró en las preferencias.');
     }
   }

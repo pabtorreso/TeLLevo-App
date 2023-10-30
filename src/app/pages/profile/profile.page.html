@@ -16,33 +16,32 @@
       <ion-item>
         <ion-label position="stacked">Nombre</ion-label>
         <ion-input [(ngModel)]="user.first_name" aria-labelledby="" disabled></ion-input>
-    </ion-item>
+      </ion-item>
 
-    <ion-item>
-        <ion-label position="stacked">Apellido</ion-label>
-        <ion-input [(ngModel)]="user.last_name" aria-labelledby="" disabled></ion-input>
-    </ion-item>
+      <ion-item>
+          <ion-label position="stacked">Apellido</ion-label>
+          <ion-input [(ngModel)]="user.last_name" aria-labelledby="" disabled></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label position="stacked">Tipo de Usuario</ion-label>
-      <ion-input [value]="user.userType === 'Ambos' ? 'Pasajero y Conductor' : user.userType" aria-labelledby="" disabled></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Tipo de Usuario</ion-label>
+        <ion-input [value]="user.userType === 'Ambos' ? 'Pasajero y Conductor' : user.userType" aria-labelledby="" disabled></ion-input>
+      </ion-item>
 
-    <ion-item>
-        <ion-label position="stacked">Jornada</ion-label>
-        <ion-input [(ngModel)]="user.jornada" aria-labelledby="" disabled></ion-input>
-    </ion-item>
+      <ion-item>
+          <ion-label position="stacked">Jornada</ion-label>
+          <ion-input [(ngModel)]="user.jornada" aria-labelledby="" disabled></ion-input>
+      </ion-item>
 
-    <ion-item>
-        <ion-label position="stacked">Teléfono</ion-label>
-        <ion-input [(ngModel)]="user.phone" aria-labelledby="" disabled></ion-input>
-    </ion-item>
+      <ion-item>
+          <ion-label position="stacked">Teléfono</ion-label>
+          <ion-input [(ngModel)]="user.phone" aria-labelledby="" disabled></ion-input>
+      </ion-item>
 
-    <ion-item>
-        <ion-label position="stacked">Email</ion-label>
-        <ion-input [(ngModel)]="user.email" aria-labelledby="" disabled></ion-input>
-    </ion-item>
-      <!-- Aquí puedes agregar más campos según lo que necesites mostrar -->
+      <ion-item>
+          <ion-label position="stacked">Email</ion-label>
+          <ion-input [(ngModel)]="user.email" aria-labelledby="" disabled></ion-input>
+      </ion-item>
     </ion-list>
 
     <ion-button (click)="navigateToUserTypeMenu()">Volver al menu</ion-button>

@@ -23,9 +23,8 @@ export class UserTypeMenuPage implements OnInit, OnDestroy {
   userInfo$: Observable<UserModel>;
   user_id: string;
 
-  user: UserModel | null = null; // Agregamos esta propiedad
-  userSubscription: Subscription | null = null; // Agregamos esta propiedad
-
+  user: UserModel | null = null;
+  userSubscription: Subscription | null = null; 
   constructor(private router: Router, private _userService: UserService, private _tripsService: TripsService ) { 
     this.user_id = this.router.getCurrentNavigation()?.extras.state?.['userInfo'];
     this.userInfo$ = this._userService.getUser(this.user_id);
@@ -35,18 +34,14 @@ export class UserTypeMenuPage implements OnInit, OnDestroy {
   }
 
   ionViewWillEnter() {
-    // Suscribirse al observable userInfo$ para obtener el objeto user
     this.userSubscription = this.userInfo$.subscribe(userInfo => {
       this.user = userInfo;
       this.getRelatedTrip();
     });
-    // Llama a la función que verifica el viaje relacionado
-    // cada vez que la página esté a punto de mostrarse
     this.getRelatedTrip();
   }
 
   ngOnDestroy() {
-    // Desuscribirse del observable para evitar fugas de memoria
     if (this.userSubscription) {
       this.userSubscription.unsubscribe();
     }
@@ -54,7 +49,7 @@ export class UserTypeMenuPage implements OnInit, OnDestroy {
 
   getRelatedTrip() {
     if (this.user) {
-      this.relatedTrip = null; // Asegúrate de que se restablezca primero
+      this.relatedTrip = null;
   
       // Si el usuario es conductor
       if (this.user.userType === 'Conductor' || this.user.userType === 'Ambos') {
@@ -85,17 +80,14 @@ export class UserTypeMenuPage implements OnInit, OnDestroy {
   }
 
   goToProfile() {
-    // Navega a la página de perfil
     this.router.navigate(['/profile'], { state: { userInfo: this.user_id}});
   }
 
   createTrip() {
-    // Navega a la página de crear viaje
     this.router.navigate(['/create-trip']);
   }
 
   joinTrip() {
-    // Navega a la página para unirse a un viaje
     this.router.navigate(['/join-trip']);
   }
 
