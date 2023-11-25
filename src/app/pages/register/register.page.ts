@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule, NgFor, NgIf, NgForOf } from '@angular/common';
 import { FormsModule, } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, ToastController } from '@ionic/angular';
 import { Router, RouterLinkWithHref, } from '@angular/router';
 import { UserService } from 'app/services/user.service';
 import { UserModel } from 'app/models/UserModel';
@@ -30,10 +30,13 @@ export class RegisterPage implements OnInit { //OnDestroy
     password: ''
   };
 
+  confirmPassword: string = '';
+
+
   public userExists?: UserModel;
   public userList: UserModel[] = [];
 
-  constructor(private route: Router, private _usuarioService: UserService) {
+  constructor(private route: Router, private _usuarioService: UserService, public toastController: ToastController ) {
   }
 
   //ngOnDestroy(): void {
@@ -52,21 +55,47 @@ export class RegisterPage implements OnInit { //OnDestroy
   }
 
   async registerUser() {
-    if(this.userRegisterModal.email && this.userRegisterModal.password && this.userRegisterModal.first_name && this.userRegisterModal.last_name && this.userRegisterModal.phone && this.userRegisterModal.userType && this.userRegisterModal.jornada) {
-        try {
-            const response = await lastValueFrom(this._usuarioService.addNewUser(this.userRegisterModal));
-            console.log(response);
-            alert('Usuario registrado con éxito!');
-            this.goToLogin();
-        } catch(error) {
-            console.error(error);
-            alert('Hubo un error al registrar el usuario. Por favor, intenta nuevamente.');
-        }
-    } else {
-        alert('Por favor, completa todos los campos.');
+    if (!this.allFieldsValid()) {
+      this.presentToast('Por favor, completa todos los campos.');
+      return;
+    }
+    if (!this.passwordsMatch()) {
+      this.presentToast('Las contraseñas no coinciden.');
+      return;
+    }
+    try {
+      const response = await lastValueFrom(this._usuarioService.addNewUser(this.userRegisterModal));
+      console.log(response);
+      this.presentToast('Usuario registrado con éxito!');
+      this.goToLogin();
+    } catch (error) {
+      console.error(error);
+      this.presentToast('Hubo un error al registrar el usuario. Por favor, intenta nuevamente.');
     }
   }
 
+  // Utiliza este método para presentar toasts
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000,
+      position: 'top'
+    });
+    await toast.present();
+  }
+
+  // Método para verificar que todos los campos estén llenos
+  allFieldsValid(): boolean {
+    return !!this.userRegisterModal.first_name && !!this.userRegisterModal.last_name &&
+           !!this.userRegisterModal.userType && !!this.userRegisterModal.jornada &&
+           !!this.userRegisterModal.phone && !!this.userRegisterModal.email &&
+           !!this.userRegisterModal.password;
+  }
+
+  // Método para verificar que las contraseñas coincidan
+  passwordsMatch(): boolean {
+    return this.userRegisterModal.password === this.confirmPassword;
+  }
 
   userRegisterModalRestart(): void {
     this.userRegisterModal.email = '';

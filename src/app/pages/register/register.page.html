@@ -28,15 +28,25 @@
           <ion-select-option value="Vespertino">Vespertino</ion-select-option>
         </ion-select>
         <ion-input class="center-content" fill="outline" shape="rounded" labelPlacement="floating" label="Teléfono" placeholder="+56 9 87654321" style="margin-top: 20px;" [(ngModel)]="userRegisterModal.phone" required></ion-input>
-        <ion-input class="center-content" fill="outline" shape="rounded" labelPlacement="floating" label="Email" placeholder="correo@mail.com" style="margin-top: 20px;" [(ngModel)]="userRegisterModal.email" required></ion-input>
-        <ion-input type="password" class="center-content" fill="outline" shape="rounded" labelPlacement="floating" label="Contraseña" style="margin-top: 20px;" [(ngModel)]="userRegisterModal.password" required></ion-input>
+        <ion-input type="mail" class="center-content" fill="outline" shape="rounded" labelPlacement="floating" label="Email" placeholder="correo@mail.com" style="margin-top: 20px;" name="email" #emailField="ngModel" [(ngModel)]="userRegisterModal.email" required email></ion-input>
+        <div *ngIf="emailField.invalid && emailField.touched" class="error-message">
+          <ion-text color="danger">Por favor ingresa un correo válido.</ion-text>
+        </div>
+        <ion-input type="password" name="password" #passwordField="ngModel" class="center-content" fill="outline" shape="rounded" labelPlacement="floating" label="Contraseña" style="margin-top: 20px;" [(ngModel)]="userRegisterModal.password" required minlength="6"></ion-input>
+        <div *ngIf="passwordField.invalid && passwordField.touched" class="error-message">
+          <ion-text color="danger">La contraseña debe tener al menos 6 caracteres.</ion-text>
+        </div>
+        <ion-input type="password" name="password" #passwordField="ngModel" class="center-content" fill="outline" shape="rounded" labelPlacement="floating" label="Confirmar Contraseña" style="margin-top: 20px;" [(ngModel)]="confirmPassword" required minlength="6"></ion-input>
+        <div *ngIf="passwordField.invalid && passwordField.touched" class="error-message">
+          <ion-text color="danger">La contraseña debe tener al menos 6 caracteres.</ion-text>
+        </div>
 
-          <div style="margin-top: 20px;" class="center-content">
-            <ion-button color="success" (click)="registerUser()">Registrar</ion-button>
-          </div>
-          <div style="margin-top: 20px;" class="center-content">
-            <ion-button color="medium" (click)="goToLogin()">Cancelar</ion-button>
-          </div>
+        <div style="margin-top: 20px;" class="center-content">
+          <ion-button color="success" (click)="registerUser()">Registrar</ion-button>
+        </div>
+        <div style="margin-top: 20px;" class="center-content">
+          <ion-button color="medium" (click)="goToLogin()">Cancelar</ion-button>
+        </div>  
 
           <div style="margin-top: 20px;"></div>
       </div>

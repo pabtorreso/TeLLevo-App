@@ -9,10 +9,12 @@
     </ion-toolbar>
   </ion-header>
 
-
-  <ion-avatar style="margin: 0 auto;" class="item-avatar">
-    <img alt="logo" src="../../assets/img/kr_logo.png" />
-  </ion-avatar>
+  <div class="center-content" style="margin: 30px;" >
+    <div class="splash-logo">
+      <img src="assets/img/kr_logo.png" alt="Logo de la aplicación">
+    </div>
+  </div>
+  
 
   <ion-card>
     <ion-card-header>
@@ -20,26 +22,40 @@
     </ion-card-header>
 
     <ion-card-content>
-      <div>
+
+      <form #loginForm="ngForm" (ngSubmit)="userLogin(userLoginModal)">
+        <!-- correo -->
         <ion-input class="center-content" fill="outline" shape="rounded" labelPlacement="floating" label="Correo"
-          [(ngModel)]="userLoginModal.email"></ion-input>
-        <ion-input type="password" class="center-content" style="margin-top: 20px;" fill="outline" shape="rounded" labelPlacement="floating" label="Contraseña"
-          [(ngModel)]="userLoginModal.password"></ion-input>
+        type="email" name="email" #emailField="ngModel" [(ngModel)]="userLoginModal.email" required email>
+        </ion-input>
+        <div *ngIf="emailField.invalid && emailField.touched" class="error-message">
+          <ion-text color="danger">Por favor ingresa un correo válido.</ion-text>
+        </div>
 
-          <div style="margin-top: 20px;" class="center-content">
-            <ion-button color="success" (click)="userLogin(userLoginModal)">Login</ion-button>
-          </div>
-    
-          <div style="margin-top: 20px;" class="center-content">
-            <ion-text color="medium">¿Aún no tienes una cuenta?</ion-text>
-            <ion-button fill="clear" (click)="goToRegister()">Regístrate</ion-button>
-          </div>
-      </div>
+        <!-- password -->
+        <ion-input class="center-content" style="margin-top: 20px;" fill="outline" shape="rounded" labelPlacement="floating" label="Contraseña"
+          type="password" name="password" #passwordField="ngModel" [(ngModel)]="userLoginModal.password" required minlength="6">
+        </ion-input>
+        <div *ngIf="passwordField.invalid && passwordField.touched" class="error-message">
+          <ion-text color="danger">La contraseña debe tener al menos 6 caracteres.</ion-text>
+        </div>
+
+        <!-- Submit -->
+        <div style="margin-top: 20px;" class="center-content">
+          <ion-button type="submit" color="success" (click)="userLogin(userLoginModal)" [disabled]="loginForm.invalid">Login</ion-button>
+        </div>
+        
+        <!-- Register -->
+        <div style="margin-top: 20px;" class="center-content">
+          <ion-text color="medium">¿Aún no tienes una cuenta?</ion-text>
+          <ion-button fill="clear" (click)="goToRegister()">Regístrate</ion-button>
+        </div>        
+      </form>
+      
     </ion-card-content>
+    
   </ion-card>
-
   <div></div>
-
 </ion-content>
 
 <!--

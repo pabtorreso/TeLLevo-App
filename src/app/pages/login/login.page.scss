@@ -10,3 +10,14 @@
     max-width: 150px !important;  //any size
     max-height: 150px !important; //any size 
 }
+
+.splash-logo img {
+  width: 125px;
+}
+
+.error-message {
+    padding: 5px 0;
+    ion-text {
+      display: block; // Asegúrate de que ion-text se muestra como bloque
+    }
+  }

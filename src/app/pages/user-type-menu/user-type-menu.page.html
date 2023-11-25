@@ -1,26 +1,41 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Menu Principal</ion-title>
+    <ion-title class="ion-text-center">Menu Principal</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-header collapse="condense">
+  </ion-header>
 
-  <div>
-    <ion-button (click)="goToProfile()">Ir al perfil</ion-button>
-  </div>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title class="ion-text-center" style="margin-top: 30px;">Bienvenido {{ user?.first_name }} a KnownRoute!</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
 
-  <ng-container *ngIf="userInfo$ | async as user">
-    <div>
-        <ion-button *ngIf="!relatedTrip && (user.userType === 'Conductor' || user.userType === 'Ambos')" (click)="createTrip()">Crear un viaje</ion-button>
-        <ion-button *ngIf="!relatedTrip && (user.userType === 'Pasajero' || user.userType === 'Ambos')" (click)="joinTrip()">Unirse a un viaje</ion-button>
-        <ion-button *ngIf="relatedTrip" (click)="goToTripDetail()">Estado del viaje</ion-button>
-    </div>
+      <div class="center-content">
+        <ion-button color="tertiary" style="margin-top: 40px;" (click)="goToProfile()">Ir al perfil</ion-button>
+      </div>
 
-    <div>
-      <ion-button (click)="logout()">Cerrar sesión</ion-button>
-    </div>
-    
-  </ng-container>
+      <ng-container *ngIf="userInfo$ | async as user">
+        
+        <div class="center-content" style="margin-top: 40px;">
+          <ion-button color="tertiary" *ngIf="!relatedTrip && (user.userType === 'Pasajero' || user.userType === 'Ambos')" (click)="joinTrip()">Unirse a un viaje</ion-button>          
+        </div>
 
+        <div class="center-content" style="margin-top: 10px;">
+          <ion-button color="tertiary" *ngIf="!relatedTrip && (user.userType === 'Conductor' || user.userType === 'Ambos')" (click)="createTrip()">Crear un viaje</ion-button>
+          <ion-button color="success" *ngIf="relatedTrip" (click)="goToTripDetail()">Estado del viaje</ion-button>
+        </div>
+
+        <div class="center-content" style="margin-top: 50px;">
+          <ion-button color="danger" style="margin-bottom: 77px;" (click)="logout()">Cerrar sesión</ion-button>
+        </div>
+        
+      </ng-container>
+      
+    </ion-card-content>
+  </ion-card>
+  <div></div>
 </ion-content>

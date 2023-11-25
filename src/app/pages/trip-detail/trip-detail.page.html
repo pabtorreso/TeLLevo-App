@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Detalles del Viaje</ion-title>
+    <ion-title class="ion-text-center">Detalles del Viaje</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -13,20 +13,19 @@
 
   <div *ngIf="tripDetails$ | async as tripDetails; else loading">
     <!--- {{ tripDetails | json }} -->
+
+    <div style="margin-top: 15px;margin-bottom: 15px;" class="center-content">
+      <ion-button color="primary" style="margin-right: 20px;" (click)="goToMenu()">Volver al Menú</ion-button>
+          
+      <ion-button color="danger" *ngIf="isDriver()" (click)="endTrip(tripDetails.trip_id)">Finalizar Viaje</ion-button>
+      <ion-button color="danger" *ngIf="!isDriver()" (click)="leaveTrip()">Salir del Viaje</ion-button>
+    </div>
+
+
     <ion-list>
       <ion-item>
-        <ion-label position="stacked">Origen</ion-label>
-        <ion-input [value]="tripDetails?.origin" aria-labelledby="" disabled></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="stacked">Destino</ion-label>
-        <ion-input [value]="tripDetails?.destination" aria-labelledby="" disabled></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="stacked">Asientos Disponibles</ion-label>
-        <ion-input [value]="tripDetails?.availableSeats"  aria-labelledby=""disabled></ion-input>
+        <ion-label position="stacked">Trayecto</ion-label>
+        <ion-input [value]=" 'Desde  ' + tripDetails?.origin + '  hasta  ' + tripDetails?.destination"  aria-labelledby="" disabled></ion-input>
       </ion-item>
 
       <ion-item *ngIf="tripDetails.driver_id">
@@ -34,11 +33,17 @@
         <ion-input [value]="tripDetails.driver_id.first_name + ' ' + tripDetails.driver_id.last_name" aria-labelledby="" disabled></ion-input>
       </ion-item>
 
+      <ion-item>
+        <ion-label position="stacked">Asientos Disponibles</ion-label>
+        <ion-input [value]="tripDetails?.availableSeats"  aria-labelledby=""disabled></ion-input>
+      </ion-item>
+
+
       <ion-item *ngIf="tripDetails.passengers && tripDetails.passengers.length > 0">
         <ion-list>
           <ion-label position="stacked">Pasajeros</ion-label>
           <ion-item disabled *ngFor="let passenger of tripDetails?.passengers; trackBy: trackByFn">
-            <ion-label>- {{ passenger.first_name }} {{ passenger.last_name }} </ion-label>
+            <ion-label>{{ passenger.first_name }} {{ passenger.last_name }} </ion-label>
           </ion-item>
         </ion-list>
       </ion-item>
@@ -48,12 +53,10 @@
       </ion-item>
     </ion-list>
 
-    <ion-button *ngIf="isDriver()" (click)="endTrip(tripDetails.trip_id)">Finalizar Viaje</ion-button>
 
-    <ion-button *ngIf="!isDriver()" (click)="leaveTrip()">Salir del Viaje</ion-button>
     
   </div>
-  <ion-button (click)="goToMenu()">Volver al Menú</ion-button>
+  
   <ng-template #loading>
     <div>Cargando...</div>
   </ng-template>

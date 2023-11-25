@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { UserService } from 'app/services/user.service';
 import { TripsService } from 'app/services/trips.service';
@@ -25,7 +25,7 @@ export class UserTypeMenuPage implements OnInit, OnDestroy {
 
   user: UserModel | null = null;
   userSubscription: Subscription | null = null; 
-  constructor(private router: Router, private _userService: UserService, private _tripsService: TripsService ) { 
+  constructor(private router: Router, private _userService: UserService, private _tripsService: TripsService, public toastController: ToastController ) { 
     this.user_id = this.router.getCurrentNavigation()?.extras.state?.['userInfo'];
     this.userInfo$ = this._userService.getUser(this.user_id);
   }
@@ -45,6 +45,15 @@ export class UserTypeMenuPage implements OnInit, OnDestroy {
     if (this.userSubscription) {
       this.userSubscription.unsubscribe();
     }
+  }
+
+  async presentSuccessToast() {
+    const toast = await this.toastController.create({
+      message: 'Sesión cerrada con éxito.',
+      duration: 2000,
+      position: 'top'
+    });
+    toast.present();
   }
 
   getRelatedTrip() {
@@ -114,6 +123,7 @@ export class UserTypeMenuPage implements OnInit, OnDestroy {
     const user = await Preferences.get({ key: 'user' });
     if (!user || !user.value) {
       console.log("La sesión se cerró correctamente");
+      this.presentSuccessToast();
     } else {
       console.log("La sesión no se cerró correctamente");
     }

@@ -11,11 +11,16 @@
     </ion-toolbar>
   </ion-header>
 
+  <div class="center-content">
+    <ion-button color="tertiary" style="margin-top: 30px;margin-bottom: 20px" (click)="goToMenu()">Volver al Menú</ion-button>
+  </div>
+  
+
   <ng-container *ngIf="tripDetails$ | async as trips; else loading">
     <ion-card *ngFor="let trip of trips">
       <ion-card-header>
         <ion-card-title>
-            Desde <strong>{{trip.origin}}</strong>
+            Desde <strong>{{trip.origin}} -</strong>
             Hasta <strong>{{trip.destination}}</strong>
         </ion-card-title>
       </ion-card-header>
@@ -23,12 +28,10 @@
         Conductor: {{ trip.driver_id.first_name }} {{ trip.driver_id.last_name }}
         <br>
         Asientos Disponibles: {{ trip.availableSeats }}
-        <ion-button (click)="joinTrip(trip)" [disabled]="trip.availableSeats <= 0">Unirme</ion-button>
+        <ion-button color="danger" style="margin-left: 70px" (click)="joinTrip(trip)" [disabled]="trip.availableSeats <= 0">Unirme</ion-button>
       </ion-card-content>
     </ion-card>
   </ng-container>
-
-  <ion-button (click)="goToMenu()">Volver al Menú</ion-button>
   
   <ng-template #loading>
     <div>Cargando...</div>
