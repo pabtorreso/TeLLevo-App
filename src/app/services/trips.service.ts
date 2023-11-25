@@ -47,10 +47,12 @@ export class TripsService {
     );
   }
 
-  getPassengersForTrip(trip_id: string): Observable<PassengersModel[]> {
-    return this._httpclient.get<PassengersModel[]>(
-      `${this.URL_SUPABASE}/PASSENGERS?trip_id=eq.${trip_id}`,
+  getPassengersForTrip(trip_id: string): Observable<UserModel[]> {
+    return this._httpclient.get<{passenger_id: UserModel}[]>(
+      `${this.URL_SUPABASE}/PASSENGERS?trip_id=eq.${trip_id}&select=passenger_id:USERS(first_name,last_name,user_id)!inner`,
       { headers: this.supabaseheaders }
+    ).pipe(
+      map(response => response.map(res => res.passenger_id))
     );
   }
 

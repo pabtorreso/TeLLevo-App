@@ -61,12 +61,13 @@ export class UserTypeMenuPage implements OnInit, OnDestroy {
       }
   
       // Si el usuario es pasajero y aún no tiene un viaje relacionado
-      if (!this.relatedTrip && (this.user.userType === 'Pasajero' || this.user.userType === 'Ambos')) {
+      if (this.user.userType === 'Pasajero' || this.user.userType === 'Ambos') {
         this._tripsService.getPassengersForUser(this.user_id).subscribe(passengers => {
-          if (passengers && passengers.length > 0 && passengers[0].trip_id) {
-            this._tripsService.getTripById(passengers[0].trip_id).subscribe(trip => {
-              this.relatedTrip = trip;
-            });
+          // Encuentra el primer registro que corresponda al usuario actual como pasajero
+          const passengerTrip = passengers.find(p => p.passenger_id === this.user_id);
+          if (passengerTrip && passengerTrip.trip_id) {
+            // Aquí utilizamos el trip_id encontrado para asignarlo a relatedTrip
+            this.relatedTrip = { trip_id: passengerTrip.trip_id } as TripsModel; // Asumiendo que relatedTrip es del tipo TripsModel
           }
         });
       }
@@ -74,8 +75,11 @@ export class UserTypeMenuPage implements OnInit, OnDestroy {
   }
 
   goToTripDetail() {
-    if (this.relatedTrip) {
-        this.router.navigate([`/trip-detail/${this.relatedTrip.trip_id}`]);
+    // Antes de navegar, asegúrate de que el trip_id esté presente
+    if (this.relatedTrip && this.relatedTrip.trip_id) {
+      this.router.navigate([`/trip-detail/${this.relatedTrip.trip_id}`]);
+    } else {
+      console.error('No hay viaje relacionado para mostrar.');
     }
   }
 

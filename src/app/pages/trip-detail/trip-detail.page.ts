@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
-import { catchError, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { EMPTY, of, Observable, throwError, Subject } from 'rxjs';
+import { catchError, switchMap, takeUntil, tap, map } from 'rxjs/operators';
+import { EMPTY, of, Observable, throwError, Subject, forkJoin } from 'rxjs';
 import { TripsService } from 'app/services/trips.service';
 import { TripDetailModel } from 'app/models/TripDetailModel';
 import { PassengersModel } from 'app/models/PassengersModel';
+import { UserModel } from 'app/models/UserModel';
 import { Preferences } from '@capacitor/preferences';
 
 @Component({
@@ -20,14 +21,17 @@ import { Preferences } from '@capacitor/preferences';
 
 export class TripDetailPage implements OnInit, OnDestroy {
   tripDetails$: Observable<TripDetailModel | undefined> = of(undefined); // Valor inicial
-  passengers$: Observable<PassengersModel[] | undefined> = of([]); // Valor inicial
+  passengers$: Observable<UserModel[] | undefined> = of([]);
   private destroy$ = new Subject<void>();
   currentUser_id!: string;
+
+trackByFn(index: any, item: any) {
+    return index; //
+  }
 
   tripDetails: any = {
     origin: '',
     destination: '',
-    // ...otros campos... ????
   };
   
   constructor( private _tripsService: TripsService, private route: ActivatedRoute, private router: Router) {
@@ -43,26 +47,38 @@ export class TripDetailPage implements OnInit, OnDestroy {
     const trip_id = this.route.snapshot.paramMap.get('id');
     if (trip_id) {
       this.tripDetails$ = this._tripsService.getTripDetails(trip_id).pipe(
-          tap((data: TripDetailModel) => {
-              console.log('Detalles del viaje:', data);
-              this.tripDetails = data; // Actualiza tripDetails con los datos recibidos
-              this.loadCurrentUserId(); // Carga el ID del usuario actual y compara con driver_id
-          }),
-          catchError(err => {
-              console.error("Hubo un error al obtener los detalles del viaje", err);
-              return throwError(err);
-          })
-      );
-
-      this.passengers$ = this._tripsService.getPassengersForTrip(trip_id).pipe(
-        tap((passengers: PassengersModel[]) => console.log('Pasajeros:', passengers)),
+        tap((data: TripDetailModel) => {
+          console.log('Detalles del viaje:', data);
+          this.tripDetails = data; // Actualiza tripDetails con los datos recibidos
+          this.loadCurrentUserId(); // Carga el ID del usuario actual y compara con driver_id
+          this.loadPassengers(trip_id); // Llama a la función que carga los pasajeros
+        }),
+        takeUntil(this.destroy$),
         catchError(err => {
-          console.error("Hubo un error al obtener los pasajeros", err);
+          console.error("Hubo un error al obtener los detalles del viaje", err);
           return throwError(err);
         })
       );
     }
     this.loadCurrentUserId();
+  }
+  
+  loadPassengers(trip_id: string) {
+    this._tripsService.getPassengersForTrip(trip_id).pipe(
+      takeUntil(this.destroy$),
+      tap((passengers: UserModel[]) => {
+        console.log('Pasajeros:', passengers);
+        // Combina la información de los pasajeros con tripDetails
+        this.tripDetails.passengers = passengers;
+      }),
+      catchError(err => {
+        console.error("Hubo un error al obtener los pasajeros", err);
+        return throwError(err);
+      })
+    ).subscribe(passengers => {
+    // Crea un nuevo objeto en lugar de mutar el existente
+    this.tripDetails = { ...this.tripDetails, passengers: passengers };
+    });
   }
 
   async loadCurrentUserId() {
