@@ -5,18 +5,18 @@ import { Observable, catchError, map } from "rxjs";
 import { Router, RouterLinkWithHref, } from '@angular/router';
 import { Preferences } from '@capacitor/preferences';
 import { IUserLogin } from "app/models/IUserLogin";
+import { environment } from "../../environments/environment";
 
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
 
-    URL_SUPABASE = 'https://frrwaoacgpogsszqpyxc.supabase.co/rest/v1/'
+    URL_SUPABASE = environment.supabaseUrl; // Usa la URL desde environment
 
     constructor(private _httpclient: HttpClient, private router: Router) { }
 
-    supabaseheaders = new HttpHeaders()
-        .set('apikey', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZycndhb2FjZ3BvZ3NzenFweXhjIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTcyODIzMTYsImV4cCI6MjAxMjg1ODMxNn0.nuP5eBF5vJFZfIS6e_rD7PVNuFiSREDD2vgqnYyKZ8U')
-
+    supabaseheaders = new HttpHeaders().set('apikey', environment.supabaseKey); // Usa la key desde environment
+    
     getUserListSupaBase(): Observable<UserModel[]> {
         return this._httpclient.get<UserModel[]>(this.URL_SUPABASE, { headers: this.supabaseheaders, responseType: 'json' });
     }

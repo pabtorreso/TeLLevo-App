@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, CUSTOM_ELEMENTS_SCHEMA, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
@@ -10,12 +10,15 @@ import { TripDetailModel } from 'app/models/TripDetailModel';
 import { PassengersModel } from 'app/models/PassengersModel';
 import { UserModel } from 'app/models/UserModel';
 import { Preferences } from '@capacitor/preferences';
+import { GoogleMap } from '@capacitor/google-maps';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-trip-detail',
   templateUrl: './trip-detail.page.html',
   styleUrls: ['./trip-detail.page.scss'],
   standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [IonicModule, CommonModule, FormsModule]
 })
 
@@ -24,8 +27,10 @@ export class TripDetailPage implements OnInit, OnDestroy {
   passengers$: Observable<UserModel[] | undefined> = of([]);
   private destroy$ = new Subject<void>();
   currentUser_id!: string;
+  @ViewChild('map', { static: false }) mapRef!: ElementRef;
+  map: GoogleMap | undefined;
 
-trackByFn(index: any, item: any) {
+  trackByFn(index: any, item: any) {
     return index; //
   }
 
@@ -61,6 +66,25 @@ trackByFn(index: any, item: any) {
       );
     }
     this.loadCurrentUserId();
+  }
+
+  ionViewDidEnter() {
+    this.createMap();
+  }
+
+  async createMap(){
+    this.map = await GoogleMap.create({
+      id: 'my-map',
+      apiKey: environment.googleMapsApiKey,
+      element: this.mapRef.nativeElement,
+      config:{
+        center:{
+          lat: -33.033708,
+          lng: -71.532975,
+        },
+        zoom: 18,
+      },
+    });
   }
   
   loadPassengers(trip_id: string) {

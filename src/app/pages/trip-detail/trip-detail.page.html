@@ -21,6 +21,8 @@
       <ion-button color="danger" *ngIf="!isDriver()" (click)="leaveTrip()">Salir del Viaje</ion-button>
     </div>
 
+    <!-- Contenedor del mapa -->
+    <capacitor-google-map #map style="display: inline-block; width: 100%; height: 400px; margin-bottom: 5px;"></capacitor-google-map>
 
     <ion-list>
       <ion-item>
@@ -53,10 +55,8 @@
       </ion-item>
     </ion-list>
 
-
-    
   </div>
-  
+
   <ng-template #loading>
     <div>Cargando...</div>
   </ng-template>
