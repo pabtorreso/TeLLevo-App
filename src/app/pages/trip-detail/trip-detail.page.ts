@@ -10,8 +10,11 @@ import { TripDetailModel } from 'app/models/TripDetailModel';
 import { PassengersModel } from 'app/models/PassengersModel';
 import { UserModel } from 'app/models/UserModel';
 import { Preferences } from '@capacitor/preferences';
-import { GoogleMap } from '@capacitor/google-maps';
+import { Circle, GoogleMap, Polyline, Polygon } from '@capacitor/google-maps';
 import { environment } from 'environments/environment';
+import { GeocodingService } from 'app/services/geocoding.service';
+
+declare var google: any;
 
 @Component({
   selector: 'app-trip-detail',
@@ -23,12 +26,13 @@ import { environment } from 'environments/environment';
 })
 
 export class TripDetailPage implements OnInit, OnDestroy {
-  tripDetails$: Observable<TripDetailModel | undefined> = of(undefined); // Valor inicial
+  tripDetails$: Observable<TripDetailModel | undefined> = of(undefined);
   passengers$: Observable<UserModel[] | undefined> = of([]);
   private destroy$ = new Subject<void>();
   currentUser_id!: string;
   @ViewChild('map', { static: false }) mapRef!: ElementRef;
   map: GoogleMap | undefined;
+  directionsRenderer = new google.maps.DirectionsRenderer;
 
   trackByFn(index: any, item: any) {
     return index; //
@@ -37,9 +41,10 @@ export class TripDetailPage implements OnInit, OnDestroy {
   tripDetails: any = {
     origin: '',
     destination: '',
+    passengers: [],
   };
   
-  constructor( private _tripsService: TripsService, private route: ActivatedRoute, private router: Router) {
+  constructor( private _tripsService: TripsService, private geocodingService: GeocodingService, private route: ActivatedRoute, private router: Router) {
     this.route.paramMap.subscribe(params => {
       const userInfo = this.route.snapshot.paramMap.get('userInfo');
       if (userInfo) {
@@ -68,8 +73,11 @@ export class TripDetailPage implements OnInit, OnDestroy {
     this.loadCurrentUserId();
   }
 
-  ionViewDidEnter() {
-    this.createMap();
+  async ionViewDidEnter() {
+    await this.createMap();
+    if (this.tripDetails.origin && this.tripDetails.destination) {
+      this.showRoute(this.tripDetails.origin, this.tripDetails.destination);
+    }
   }
 
   async createMap(){
@@ -86,7 +94,103 @@ export class TripDetailPage implements OnInit, OnDestroy {
       },
     });
   }
+
+  async showRoute(origin: string, destination: string) {
+    forkJoin({
+      originResult: this.geocodingService.geocodeAddress(origin),
+      destinationResult: this.geocodingService.geocodeAddress(destination)
+    }).subscribe(async ({ originResult, destinationResult }) => {
+      if (this.map && originResult && destinationResult) {
+        const originCoords = {
+          lat: originResult.lat,
+          lng: originResult.lng
+        };
+        const destinationCoords = {
+          lat: destinationResult.lat,
+          lng: destinationResult.lng
+        };
+        
+        // Agrega los marcadores al mapa
+        await this.addMarkerToMap(originCoords, 'Origin');
+        await this.addMarkerToMap(destinationCoords, 'Destination');
+        
+        // Obtén las direcciones detalladas de la ruta
+        const directionsResult = await this.geocodingService.getRoute(origin, destination).toPromise();
   
+        if (directionsResult) {
+          // Extrae las coordenadas de la ruta detallada
+          const path = directionsResult.routes[0].overview_path.map(p => ({
+            lat: p.lat(),
+            lng: p.lng()
+          }));
+  
+          // Agrega la polilínea al mapa
+          await this.addPolylineToMap(path);
+  
+          // Calcula el punto central
+          const bounds = new google.maps.LatLngBounds();
+          path.forEach(point => {
+            bounds.extend(new google.maps.LatLng(point.lat, point.lng));
+          });
+  
+          // Calcula el centro y el zoom
+          const center = bounds.getCenter();
+          const zoom = this.calculateZoomLevel(bounds);
+  
+          // Actualiza la posición del mapa y el zoom
+          await this.map.setCamera({
+            coordinate: {
+              lat: center.lat(),
+              lng: center.lng()
+            },
+            zoom: zoom
+          });
+        }
+      }
+    }, error => {
+      console.error('Error obteniendo la ruta: ', error);
+    });
+  }
+
+  // Calcula el nivel de zoom basado en los límites
+  calculateZoomLevel(bounds: google.maps.LatLngBounds): number {
+    const GLOBE_WIDTH = 256; // un valor base para la anchura del mapa
+    let angle = bounds.getNorthEast().lng() - bounds.getSouthWest().lng();
+    if (angle < 0) {
+      angle += 360;
+    }
+    const pixelWidth = (this.mapRef.nativeElement.offsetWidth || window.innerWidth);
+    let zoomLevel = Math.round(Math.log(pixelWidth * 360 / angle / GLOBE_WIDTH) / Math.LN2);
+    // Puedes ajustar el número '2' a un valor que funcione mejor para tu caso
+    zoomLevel -= 0.75;
+  
+    return Math.max(zoomLevel, 0); // Asegúrate de que el nivel de zoom no sea negativo
+  }
+
+  private async addMarkerToMap(coords: google.maps.LatLngLiteral, title: string) {
+    if (this.map) {
+      await this.map.addMarker({
+        coordinate: {
+          lat: coords.lat,
+          lng: coords.lng
+        },
+        title: title
+      });
+    }
+  }
+
+  private async addPolylineToMap(path: google.maps.LatLngLiteral[]) {
+    if (this.map) {
+      await this.map.addPolylines([{
+        // Asegúrate de que la estructura del objeto cumpla con los requisitos de @capacitor/google-maps
+        path: path,
+        strokeColor: '#AA00FF',
+        strokeWeight: 5,
+        geodesic: true,
+      }]);
+    }
+  }
+
   loadPassengers(trip_id: string) {
     this._tripsService.getPassengersForTrip(trip_id).pipe(
       takeUntil(this.destroy$),

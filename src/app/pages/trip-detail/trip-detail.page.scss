@@ -3,3 +3,18 @@
     align-items: center;
     justify-content: center;
 }
+
+.route-details {
+    display: flex;
+    align-items: center;
+
+}
+
+ion-chip {
+display: flex;
+align-items: center;
+}
+
+ion-icon {
+margin: 0 8px; /* Gives some space around the arrow icon */
+}

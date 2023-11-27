@@ -25,9 +25,21 @@
     <capacitor-google-map #map style="display: inline-block; width: 100%; height: 400px; margin-bottom: 5px;"></capacitor-google-map>
 
     <ion-list>
-      <ion-item>
+      <ion-item style="margin: 0px;" lines="none">
         <ion-label position="stacked">Trayecto</ion-label>
-        <ion-input [value]=" 'Desde  ' + tripDetails?.origin + '  hasta  ' + tripDetails?.destination"  aria-labelledby="" disabled></ion-input>
+      </ion-item>
+      <ion-item>  
+        <div class="route-details">
+          <ion-chip color="primary">
+            <ion-icon name="location-outline"></ion-icon>
+            <ion-label>Desde {{ tripDetails?.origin }}</ion-label>
+          </ion-chip>
+          <ion-icon name="arrow-forward-outline"></ion-icon>
+          <ion-chip color="secondary">
+            <ion-icon name="flag-outline"></ion-icon>
+            <ion-label>Hasta {{ tripDetails?.destination }}</ion-label>
+          </ion-chip>
+        </div>
       </ion-item>
 
       <ion-item *ngIf="tripDetails.driver_id">
@@ -39,7 +51,6 @@
         <ion-label position="stacked">Asientos Disponibles</ion-label>
         <ion-input [value]="tripDetails?.availableSeats"  aria-labelledby=""disabled></ion-input>
       </ion-item>
-
 
       <ion-item *ngIf="tripDetails.passengers && tripDetails.passengers.length > 0">
         <ion-list>
