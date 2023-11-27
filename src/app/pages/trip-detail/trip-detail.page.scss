@@ -6,6 +6,10 @@ body {
     background: transparent !important;
 }
 
+.md body, .ios body {
+    --ion-background-color:none;
+}
+
 html {
     background: transparent !important;
 }
