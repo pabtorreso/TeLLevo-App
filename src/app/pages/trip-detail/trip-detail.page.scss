@@ -1,15 +1,17 @@
 ion-content {
-    background: transparent;
-    --background: transparent;
+    --background: transparent !important;
 }
   
 body {
-    background: transparent;
+    background: transparent !important;
 }
 
-/* Hace que el elemento raíz html sea transparente */
 html {
-    background: transparent;
+    background: transparent !important;
+}
+
+._gmap_cdv_ {
+    --background: transparent !important;
 }
 
 .center-content {
