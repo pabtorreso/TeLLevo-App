@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild, CUSTOM_ELEMENTS_SCHEMA, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, NavController, Platform } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, switchMap, takeUntil, tap, map } from 'rxjs/operators';
 import { EMPTY, of, Observable, throwError, Subject, forkJoin } from 'rxjs';
@@ -44,7 +44,13 @@ export class TripDetailPage implements OnInit, OnDestroy {
     passengers: [],
   };
   
-  constructor( private _tripsService: TripsService, private geocodingService: GeocodingService, private route: ActivatedRoute, private router: Router) {
+  constructor( 
+    private _tripsService: TripsService, 
+    private geocodingService: GeocodingService, 
+    private route: ActivatedRoute, 
+    private router: Router,
+    private navCtrl: NavController,
+    private platform: Platform) {
     this.route.paramMap.subscribe(params => {
       const userInfo = this.route.snapshot.paramMap.get('userInfo');
       if (userInfo) {
@@ -77,6 +83,12 @@ export class TripDetailPage implements OnInit, OnDestroy {
     await this.createMap();
     if (this.tripDetails.origin && this.tripDetails.destination) {
       this.showRoute(this.tripDetails.origin, this.tripDetails.destination);
+    }
+  }
+
+  async ionViewWillLeave() {
+    if (this.map) {
+      await this.map.destroy(); // Destruye el mapa cuando el usuario sale de la página
     }
   }
 
@@ -258,7 +270,7 @@ export class TripDetailPage implements OnInit, OnDestroy {
     const { value } = await Preferences.get({ key: 'userId' });
     
     if (value) {
-      this.router.navigate(['/user-type-menu'], { state: { userInfo: value }});
+      this.navCtrl.navigateForward(['/user-type-menu'], { state: { userInfo: value }});
     } else {
       console.error('El ID del usuario no se encontró en las preferencias.');
     }
