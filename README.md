@@ -4,7 +4,7 @@ Aplicación móvil como plataforma de transportes, se enfoca en proporcionar sol
 ---
 # Instalación Codigo Fuente
 #### Desde un celular Android leer este Codigo QR:
-![qr](https://github.com/pabtorreso/TeLLevo-App/assets/106361223/24050dfd-02c8-4cf6-b776-1b3b48bc52c5)
+<img src="https://github.com/pabtorreso/TeLLevo-App/assets/106361223/24050dfd-02c8-4cf6-b776-1b3b48bc52c5" width="350" height="350">
 
 ---
 # Instalación Codigo Fuente
