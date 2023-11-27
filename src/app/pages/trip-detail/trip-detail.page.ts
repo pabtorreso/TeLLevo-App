@@ -82,7 +82,7 @@ export class TripDetailPage implements OnInit, OnDestroy {
 
   async createMap(){
     this.map = await GoogleMap.create({
-      id: 'my-map',
+      id: 'trip-map',
       apiKey: environment.googleMapsApiKey,
       element: this.mapRef.nativeElement,
       config:{
@@ -114,7 +114,7 @@ export class TripDetailPage implements OnInit, OnDestroy {
         await this.addMarkerToMap(originCoords, 'Origin');
         await this.addMarkerToMap(destinationCoords, 'Destination');
         
-        // Obtén las direcciones detalladas de la ruta
+        // Direcciones detalladas de la ruta
         const directionsResult = await this.geocodingService.getRoute(origin, destination).toPromise();
   
         if (directionsResult) {
@@ -152,7 +152,7 @@ export class TripDetailPage implements OnInit, OnDestroy {
     });
   }
 
-  // Calcula el nivel de zoom basado en los límites
+  // Calcula el nivel de zoom (basado en los limites)
   calculateZoomLevel(bounds: google.maps.LatLngBounds): number {
     const GLOBE_WIDTH = 256; // un valor base para la anchura del mapa
     let angle = bounds.getNorthEast().lng() - bounds.getSouthWest().lng();
@@ -161,10 +161,9 @@ export class TripDetailPage implements OnInit, OnDestroy {
     }
     const pixelWidth = (this.mapRef.nativeElement.offsetWidth || window.innerWidth);
     let zoomLevel = Math.round(Math.log(pixelWidth * 360 / angle / GLOBE_WIDTH) / Math.LN2);
-    // Puedes ajustar el número '2' a un valor que funcione mejor para tu caso
     zoomLevel -= 0.75;
   
-    return Math.max(zoomLevel, 0); // Asegúrate de que el nivel de zoom no sea negativo
+    return Math.max(zoomLevel, 0); // no debe ser negativo
   }
 
   private async addMarkerToMap(coords: google.maps.LatLngLiteral, title: string) {
@@ -182,7 +181,6 @@ export class TripDetailPage implements OnInit, OnDestroy {
   private async addPolylineToMap(path: google.maps.LatLngLiteral[]) {
     if (this.map) {
       await this.map.addPolylines([{
-        // Asegúrate de que la estructura del objeto cumpla con los requisitos de @capacitor/google-maps
         path: path,
         strokeColor: '#AA00FF',
         strokeWeight: 5,

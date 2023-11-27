@@ -24,24 +24,3 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
-
-ion-content {
-    --background: transparent;
-}
-
-body {
-    background: transparent !important;
-}
-
-.md body, .ios body {
-    --ion-background-color:none;
-}
-
-html {
-    background: transparent !important;
-}
-
-._gmap_cdv_ {
-    --background: transparent !important;
-}
-
