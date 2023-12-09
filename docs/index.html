@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="dark">
+
+<head>
+
+  <!--==========================================================-->
+  <!--META-TAGS->
+  <!--==========================================================-->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="generator" content="">
+  <title>KnowRoute</title>
+  <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+
+  <!--==========================================================-->
+  <!--CDNs-->
+  <!--==========================================================-->
+  <!--BOOTSTRAP-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!--JQUERY-->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.0.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+  <!--LOCAL-->
+  <script type="text/javascript" src="js/validate.js"></script>
+  <script type="text/javascript" src="js/color-modes.js"></script>
+  <script type="text/javascript" src="js/scroll-top.js"></script>
+  <script type="text/javascript" src="js/script.js"></script>
+  <!--<link href="css/" rel="stylesheet">-->
+
+</head>
+
+<body>
+  <!--==========================================================-->
+  <!--ENCABEZADO-->
+  <!--==========================================================-->
+  <header>
+
+    <!--NAV MENSAJE-->
+    <div class="container-fullwidith text-center" style="background-color: #2D2F33;"> <!--d-none d-lg-block-->
+      <div class="container text-center">
+        <div class="navbar navbar-dark bg-faded p-0 justify-content-center">
+          <span class="navbar-text p-1"> Esta es una version de pruebas 😁 </span>
+        </div>
+      </div>
+    </div>
+
+    <!--NAV PRINCIPAL-->
+
+    <!--NAV TABS-->
+  
+  </header>
+
+<!--==========================================================-->
+<!-- PRINCIPAL -->
+<!--==========================================================-->
+<main class="container-fluid text-center pb-5 mt-5 mb-2">
+  <div class="container">
+
+    <br><br>
+    <div class="">
+      <a href="" border="0" style="cursor:default" rel="nofollow"><img src="img/kr_logo.png" alt="Logo" width="200" height="200"></a>
+    </div>
+    <br><br>
+
+    <h1 class="fw-bold">KnownRoute</h1>
+    <br>
+    <p class="fs-5 fw-medium">Aplicación móvil como plataforma de transportes, se enfoca en proporcionar soluciones eficientes para solicitar y gestionar viajes de manera segura.</p>
+    <br><br><br>
+    
+    <!-- Código QR para escritorio -->
+    <div class="d-none d-md-block">
+        <p class="fs-5 fw-medium  ">Escanea el código QR para descargar la App:</p>
+        <a href="" border="0" style="cursor:default" rel="nofollow"><img src="https://chart.googleapis.com/chart?cht=qr&chl=https%3A%2F%2Fgithub.com%2Fpabtorreso%2FTeLLevo-App%2Freleases%2Fdownload%2Fv1.0.0%2Ftellevo-app-main-7ec70b-release.apk&chs=180x180&choe=UTF-8&chld=L|2"alt="Código QR para descargar la app"></a>
+    </div>
+
+    <!-- Botón de descarga para móviles -->
+    <div class="d-block d-md-none">
+      <p class="fs-5 fw-medium pb-2">Pincha el botón para descargar la App:</p>
+        <p><a href="https://github.com/pabtorreso/TeLLevo-App/releases/download/v1.0.0/tellevo-app-main-7ec70b-release.apk" class="btn btn-primary">Descargar ahora!</a></p>
+    </div>
+    <br><br><br>
+
+    <hr/>
+    <br>
+    <h2 class="fw-bold">Imagenes de la App</h2>
+    <div class="row pt-5">
+      <div class="col-sm pb-3">
+        <img src="img/ss1.jpg" alt="Imagen" data-bs-toggle="modal" data-bs-target="#imageModal" data-src="img/ss1.jpg" width="210" height="481">
+        <img src="img/ss2.jpg" alt="Imagen" data-bs-toggle="modal" data-bs-target="#imageModal" data-src="img/ss2.jpg" width="210" height="481"></a>
+        <img src="img/ss3.jpg" alt="Imagen" data-bs-toggle="modal" data-bs-target="#imageModal" data-src="img/ss3.jpg" width="210" height="481"></a>
+        <img src="img/ss4.jpg" alt="Imagen" data-bs-toggle="modal" data-bs-target="#imageModal" data-src="img/ss4.jpg" width="210" height="481"></a>
+      </div>
+    </div>
+
+    <!-- Modal de Bootstrap -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="imageModalLabel">Título del Modal</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <img src="" class="img-fluid" id="modalImage" alt="Imagen Ampliada" width="310" height="581">
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+          var imageModal = document.getElementById('imageModal');
+          imageModal.addEventListener('show.bs.modal', function (event) {
+              var button = event.relatedTarget; // Botón que activó el modal
+              var imgSrc = button.getAttribute('data-src'); // Extrae la URL de la imagen
+              var modalImage = document.getElementById('modalImage');
+              modalImage.src = imgSrc; // Establece la URL de la imagen en el modal
+          });
+      });
+    </script>
+
+  </div>
+</main>
+
+  <!--==========================================================-->
+  <!--EXTRAS-->
+  <!--==========================================================-->
+  <!--SCROLL ARRIBA-->
+  <div class="button position-fixed bottom-0 end-0 mb-3 me-3" id="btn-back-to-top">
+    <button type="button" class="btn btn-floating btn-lg border-0" id="btn-back-to-top">
+      <a href="#"><i class="bi bi-arrow-up-circle-fill" style="font-size: 45px;color: #8988c3;"></i></a>
+    </button>
+  </div>
+
+  <!--==========================================================-->
+  <!--PIE DE PAGINA-->
+  <!--==========================================================-->
+  <footer>
+
+    <!--SUBIR-->
+    <div class="container-fluid fw-medium" style="color: white;background-color: #8988c3;">
+      <div class="row justify-content-center text-center py-1">
+        <a class="footer-volver text-decoration-none " href="#" style="color: white">
+          <i class="bi bi-chevron-up px-0 mx-2"></i>Volver arriba
+        </a>
+      </div>
+    </div>
+
+    <!--LINKS PIE-->
+
+    <!--DERECHOS DE AUTOR-->
+    <div class="container-fullwidith text-center py-2" style="color: white;background-color: #2D2F33;">
+      <span class="navbar-dark navbar-tex d-none d-lg-block"><!--d-lg-none-->
+        &copy; 2023 | Todos los derechos reservados
+      </span>
+      <span class="navbar-dark navbar-text d-lg-none"><!--d-none d-lg-block-->
+        &copy; 2023 | Todos los derechos reservados
+      </span>
+    </div>
+
+  </footer>
+</body>
+</html>
