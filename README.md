@@ -4,7 +4,7 @@ Aplicación móvil como plataforma de transportes, se enfoca en proporcionar sol
 ---
 # Instalación APK Android
 #### Desde un celular Android leer este Codigo QR:
-<img src="https://github.com/pabtorreso/TeLLevo-App/assets/106361223/24050dfd-02c8-4cf6-b776-1b3b48bc52c5" width="350" height="350">
+<img src="https://chart.googleapis.com/chart?cht=qr&chl=https%3A%2F%2Fgithub.com%2Fpabtorreso%2FTeLLevo-App%2Freleases%2Fdownload%2Fv1.0.0%2Ftellevo-app-main-7ec70b-release.apk&chs=180x180&choe=UTF-8&chld=L|2" width="350" height="350">
 
 ---
 # Instalación Codigo Fuente
