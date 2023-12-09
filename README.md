@@ -2,8 +2,12 @@
 Aplicación móvil como plataforma de transportes, se enfoca en proporcionar soluciones eficientes para solicitar y gestionar viajes de manera segura.
 
 ---
+# Instalación APK Android
+#### Desde un celular Android leer este Codigo QR:
+<img src="https://github.com/pabtorreso/TeLLevo-App/assets/106361223/24050dfd-02c8-4cf6-b776-1b3b48bc52c5" width="350" height="350">
 
-# Instalación
+---
+# Instalación Codigo Fuente
 #### En una carpeta con la CMD correr los siguientes comandos (no usar Powershell):
 ```
 git clone https://github.com/pabtorreso/TeLLevo-App.git
